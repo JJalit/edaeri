@@ -1,9 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FlatGrid } from 'react-native-super-grid';
-import RNRestart from 'react-native-restart';
 
 export default function HomePage({ props, route, navigation }) {
   let [cmdCode2, setCmdCode] = useState('');

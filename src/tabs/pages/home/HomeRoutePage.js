@@ -1,20 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart';
 
 import DrawerContent from './DrawerContent';
-
 import HomeWebViewPage from './HomeWebView';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomePage from './HomePage';
-import RNRestart from 'react-native-restart';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import LogoImage from '../../../../images/ic_logo.png';
 import RightImage from '../../../../images/ic_out.png';
 
-const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function HomeRoutePage({ route, navigation }) {

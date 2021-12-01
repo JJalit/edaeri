@@ -5,6 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View, Image, TextInput, TouchableOpacit
 import CheckBox from '@react-native-community/checkbox';
 import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import LogoImage from '../../images/logo.png';
 import CompanyImage from '../../images/ic_company.png';
 import IdImage from '../../images/ic_id.png';

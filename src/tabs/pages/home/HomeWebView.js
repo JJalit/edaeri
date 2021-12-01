@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { SafeAreaView, BackHandler } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { SafeAreaView } from 'react-native';
-import { useEffect } from 'react';
-import { BackHandler } from 'react-native';
 
 const HomeWebViewPage = ({ route, navigation }) => {
   const { url } = route.params;

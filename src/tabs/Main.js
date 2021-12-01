@@ -1,8 +1,8 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, BackHandler, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import MailPage from './pages/mail/MailPage';
 import LetterPage from './pages/letter/LetterPage';
 import TodoPage from './pages/todo/TodoPage';

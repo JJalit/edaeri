@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
-import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SafeAreaView, Alert } from 'react-native';
 
 export default function TodoPage({ navigation }) {
   let [cmdCode2, setCmdCode] = useState('');
