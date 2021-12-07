@@ -21,7 +21,7 @@ export default function HomeRoutePage({ route, navigation }) {
         data: route.params.data,
       })
     );
-  });
+  }, []);
 
   async function onPressLogout() {
     AsyncStorage.removeItem('token');

@@ -63,7 +63,7 @@ export default function MainPage(props) {
     };
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
     return () => backHandler.remove();
-  });
+  }, []);
   return (
     <NavigationContainer independent="true">
       <Tab.Navigator

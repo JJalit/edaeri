@@ -149,7 +149,7 @@ const LoginPage = ({ navigation }) => {
       console.warn('에러발생');
       console.warn(e);
     }
-  });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

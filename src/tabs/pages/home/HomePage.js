@@ -29,7 +29,7 @@ export default function HomePage({ props, route, navigation }) {
       setMenu(parseGetMainData['data']);
     }
     getUserData();
-  });
+  }, []);
 
   function goWebView(item) {
     var web_url = item + `?cmdCode=${cmdCode2}&usrID=${id2}&usrTK=${token2}`;
