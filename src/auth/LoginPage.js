@@ -34,6 +34,7 @@ const LoginPage = ({ navigation }) => {
     axios(config)
       .then(response => {
         let res = response.data;
+        console.log(res);
 
         if (res['HEADER']['RESPONSE_CODE'] == 'S') {
           if (isSelected == true) storeToken('isAutoLogin', 'true');
@@ -72,6 +73,7 @@ const LoginPage = ({ navigation }) => {
         placeholder="아이디"
       />
       <ImageInput
+        password
         source={require('../../images/ic_password.png')}
         onChangeText={e => onChangeText(e, 'password')}
         value={loginData.password}

@@ -3,7 +3,7 @@ import React from 'react';
 import StyledTextInput from './StyledTextInput';
 
 function Input(props) {
-  const { style, onChangeText, value, placeholder } = props;
+  const { style, onChangeText, value, placeholder, password } = props;
   return (
     <StyledTextInput
       style={style}
@@ -12,6 +12,7 @@ function Input(props) {
       maxLength={20}
       placeholder={placeholder}
       placeholderTextColor="#808080"
+      secureTextEntry={password}
       underlineColorAndroid="transparent"
       autoCapitalize="none"
       autoCorrect={false}
