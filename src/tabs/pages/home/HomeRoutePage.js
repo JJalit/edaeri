@@ -8,8 +8,6 @@ import RNRestart from 'react-native-restart';
 import DrawerContent from './DrawerContent';
 import HomeWebViewPage from './HomeWebView';
 import HomePage from './HomePage';
-import LogoImage from '../../../../images/ic_logo.png';
-import RightImage from '../../../../images/ic_out.png';
 
 const Drawer = createDrawerNavigator();
 
@@ -56,10 +54,10 @@ export default function HomeRoutePage({ route, navigation }) {
             headerTitleAlign: 'center',
             headerShown: true,
             gestureEnabled: false,
-            headerTitle: () => <Image source={LogoImage} style={styles.ImageStyle2} />,
+            headerTitle: () => <Image source={require('../../../../images/ic_logo.png')} style={styles.ImageStyle2} />,
             headerRight: () => (
               <TouchableOpacity onPress={onPressLogout}>
-                <Image source={RightImage} style={styles.ImageStyle3} />
+                <Image source={require('../../../../images/ic_out.png')} style={styles.ImageStyle3} />
               </TouchableOpacity>
             ),
           }}
