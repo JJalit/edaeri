@@ -41,4 +41,22 @@ const menuItems = [
   },
 ];
 
-export default { menuItems };
+const inputItems = [
+  {
+    id: 0,
+    name: 'companyCode',
+    placeholder: '회사코드',
+  },
+  {
+    id: 1,
+    name: 'id',
+    placeholder: '아이디',
+  },
+  {
+    id: 2,
+    name: 'password',
+    placeholder: '비밀번호',
+  },
+];
+
+export default { menuItems, inputItems };

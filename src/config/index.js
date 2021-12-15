@@ -1,2 +1,2 @@
 export { default as storage } from './storage';
-export { default as menu } from './menu';
+export { default as data } from './data';
