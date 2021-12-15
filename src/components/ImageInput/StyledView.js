@@ -5,7 +5,6 @@ const StyledView = styled.View`
   flex-direction: row;
   width: 100%;
   height: 44px;
-  margin-bottom: 32px;
 
   padding: 0 12px;
 `;

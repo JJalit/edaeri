@@ -46,16 +46,19 @@ const inputItems = [
     id: 0,
     name: 'companyCode',
     placeholder: '회사코드',
+    errorText: '회사코드를 확인해 주세요.',
   },
   {
     id: 1,
     name: 'id',
     placeholder: '아이디',
+    errorText: '아이디를 확인해 주세요.',
   },
   {
     id: 2,
     name: 'password',
     placeholder: '비밀번호',
+    errorText: '비밀번호를 확인해 주세요.',
   },
 ];
 

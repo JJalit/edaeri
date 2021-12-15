@@ -3,11 +3,14 @@ import { Alert } from 'react-native';
 import axios from 'axios';
 
 import { Button, ImageInput, CheckBoxText, LogoImage, Header, Section, TextButton } from '../components';
-import { storage } from '../config';
+import { storage, data } from '../config';
+
+const { storeToken } = storage;
+const { inputItems } = data;
 
 const LoginPage = ({ navigation }) => {
-  const { storeToken } = storage;
   const [loginData, setLoginData] = useState({ companyCode: '', id: '', password: '', isSelected: false });
+  const [error, setError] = useState(false);
 
   const onPress = () => {
     let data = JSON.stringify({
@@ -44,7 +47,10 @@ const LoginPage = ({ navigation }) => {
           storeToken('id', loginData.id);
 
           navigation.navigate('MAIN', { data: res.DATA });
-        } else Alert.alert('아이디나 비밀번호를 확인해주세요.');
+        } else {
+          setError(true);
+          Alert.alert('아이디나 비밀번호를 확인해주세요.');
+        }
       })
       .catch(err => console.log(err));
   };
@@ -57,16 +63,30 @@ const LoginPage = ({ navigation }) => {
     setLoginData(loginData => ({ ...loginData, isSelected: !loginData.isSelected }));
   };
 
+  const onClose = name => {
+    setLoginData(loginData => ({ ...loginData, [name]: '' }));
+  };
+
   return (
     <Header>
       <Section>
         <LogoImage source={require('../../images/logo.png')} />
-        <ImageInput onChangeText={e => onChangeText(e, 'companyCode')} value={loginData.companyCode} placeholder="회사코드" />
-        <ImageInput onChangeText={e => onChangeText(e, 'id')} value={loginData.id} placeholder="아이디" />
-        <ImageInput password onChangeText={e => onChangeText(e, 'password')} value={loginData.password} placeholder="비밀번호" />
+        {inputItems.map((item, i) => (
+          <ImageInput
+            key={i}
+            error={error}
+            errorText={item.errorText}
+            password={item.name === 'password'}
+            onClose={() => onClose(item.name)}
+            onChangeText={e => onChangeText(e, item.name)}
+            value={loginData[item.name]}
+            placeholder={item.placeholder}
+          />
+        ))}
+
         <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
         <Button text="로그인" onPress={onPress} />
-        <TextButton onPress={() => navigation.navigate('REGISTER')} text="회원가입" />
+        <TextButton onPress={() => setError(false)} text="회원가입" />
       </Section>
     </Header>
   );
