@@ -9,9 +9,8 @@ function CheckBoxText(props) {
 
   const styles = {
     checkbox: {
-      height: 20,
-      width: 20,
-      marginRight: 10,
+      height: 14,
+      width: 14,
     },
   };
   return (
