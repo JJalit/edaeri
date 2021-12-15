@@ -1,40 +1,36 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { storage } from '../../../config';
+
+const { getToken } = storage;
 
 function CustomDrawerContent(props) {
-  let [cmdCode2, setCmdCode] = useState('');
-  let [id2, setId] = useState('');
-  let [token2, setToken] = useState('');
-
+  const [cmdCode, setCmdCode] = useState('');
+  const [id, setId] = useState('');
+  const [token, setToken] = useState('');
   const [menu, setMenu] = useState([]);
 
   useEffect(() => {
-    async function getUserData() {
-      const cmdCode = await AsyncStorage.getItem('cmdCode');
-      const id = await AsyncStorage.getItem('id');
-      const token = await AsyncStorage.getItem('token');
-      const getMainData = await AsyncStorage.getItem('mainData');
-
-      const parseCmdCode = JSON.parse(cmdCode);
-      const parseId = JSON.parse(id);
-      const parseToekn = JSON.parse(token);
-      const parseGetMainData = JSON.parse(getMainData);
-
-      setCmdCode(parseCmdCode['cmdCode']);
-      setId(parseId['id']);
-      setToken(parseToekn['token']);
-      setMenu(parseGetMainData['data']);
-    }
     getUserData();
   }, []);
 
+  async function getUserData() {
+    const cmdCode = await getToken('cmdCode');
+    const id = await getToken('id');
+    const token = await getToken('token');
+    const mainData = await getToken('mainData');
+
+    setCmdCode(cmdCode);
+    setId(id);
+    setToken(token);
+    setMenu(mainData);
+  }
+
   function goWebView(item) {
-    var web_url = item + `?cmdCode=${cmdCode2}&usrID=${id2}&usrTK=${token2}`;
-    props.navigation.navigate('WEBVIEW', {
-      url: web_url,
-    });
+    var web_url = item + `?cmdCode=${cmdCode}&usrID=${id}&usrTK=${token}`;
+    props.navigation.navigate('WEBVIEW', { url: web_url });
   }
 
   return (

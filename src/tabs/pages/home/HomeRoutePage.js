@@ -2,42 +2,31 @@ import React, { useEffect } from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart';
 
 import DrawerContent from './DrawerContent';
 import HomeWebViewPage from './HomeWebView';
 import HomePage from './HomePage';
+import { storage } from '../../../config';
+
+const { storeToken, removeToken, getToken } = storage;
 
 const Drawer = createDrawerNavigator();
 
 export default function HomeRoutePage({ route, navigation }) {
   useEffect(() => {
-    AsyncStorage.setItem(
-      'mainData',
-      JSON.stringify({
-        data: route.params.data,
-      })
-    );
+    storeToken('mainData', route.params.data);
   }, []);
 
   async function onPressLogout() {
-    AsyncStorage.removeItem('token');
-    AsyncStorage.removeItem('id');
-    AsyncStorage.removeItem('pw');
-    AsyncStorage.removeItem('cmdCode');
-    AsyncStorage.removeItem('mainData');
+    removeToken('isAutoLogin');
+    removeToken('token');
+    removeToken('id');
+    removeToken('pw');
+    removeToken('cmdCode');
+    removeToken('mainData');
 
-    const isAutoLogin = await AsyncStorage.getItem('isAutoLogin');
-    if (isAutoLogin == 'true') {
-      AsyncStorage.setItem('isAutoLogin', 'false');
-      AsyncStorage.removeItem('token');
-      AsyncStorage.removeItem('id');
-      AsyncStorage.removeItem('pw');
-      AsyncStorage.removeItem('mainData');
-      AsyncStorage.removeItem('cmdCode');
-    }
-    const userData = await AsyncStorage.getItem('token');
+    const userData = await getToken('token');
 
     if (userData == null) {
       RNRestart.Restart();

@@ -37,11 +37,11 @@ const LoginPage = ({ navigation }) => {
         console.log(res);
 
         if (res['HEADER']['RESPONSE_CODE'] == 'S') {
-          if (isSelected == true) storeToken('isAutoLogin', 'true');
-          storeToken('pw', { pw: loginData.password });
-          storeToken('token', { token: res['HEADER']['AUTH_TOKEN'] });
-          storeToken('cmdCode', { cmdCode: loginData.companyCode });
-          storeToken('id', { id: loginData.id });
+          storeToken('isAutoLogin', loginData.isSelected);
+          storeToken('pw', loginData.password);
+          storeToken('token', res['HEADER']['AUTH_TOKEN']);
+          storeToken('cmdCode', loginData.companyCode);
+          storeToken('id', loginData.id);
 
           navigation.navigate('MAIN', { data: res.DATA });
         } else Alert.alert('아이디나 비밀번호를 확인해주세요.');

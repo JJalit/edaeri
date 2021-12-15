@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Alert, BackHandler, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -49,7 +49,6 @@ const resetTodoStackOnTabPress = ({ navigation, route }) => ({
 });
 
 export default function MainPage(props) {
-  var [refresh, setRefresh] = useState(1);
   useEffect(() => {
     const backAction = () => {
       Alert.alert('', '앱을 종료하시겠습니까?', [

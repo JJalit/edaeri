@@ -10,7 +10,7 @@ const storeToken = async (key, data) => {
 
 const getToken = async key => {
   try {
-    return await AsyncStorage.getItem(key);
+    return JSON.parse(await AsyncStorage.getItem(key));
   } catch (err) {
     console.log(err);
   }
