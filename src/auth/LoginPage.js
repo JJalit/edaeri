@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import axios from 'axios';
 
-import { Button, ImageInput, CheckBoxText, LogoImage, Header } from '../components';
+import { Button, ImageInput, CheckBoxText, LogoImage, Header, Section, TextButton } from '../components';
 import { storage } from '../config';
 
 const LoginPage = ({ navigation }) => {
@@ -59,29 +59,15 @@ const LoginPage = ({ navigation }) => {
 
   return (
     <Header>
-      <LogoImage source={require('../../images/logo.png')} />
-      <ImageInput
-        source={require('../../images/ic_company.png')}
-        onChangeText={e => onChangeText(e, 'companyCode')}
-        value={loginData.companyCode}
-        placeholder="회사코드"
-      />
-      <ImageInput
-        source={require('../../images/ic_id.png')}
-        onChangeText={e => onChangeText(e, 'id')}
-        value={loginData.id}
-        placeholder="아이디"
-      />
-      <ImageInput
-        password
-        source={require('../../images/ic_password.png')}
-        onChangeText={e => onChangeText(e, 'password')}
-        value={loginData.password}
-        placeholder="비밀번호"
-      />
-      <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
-      <Button text="로그인" onPress={onPress} style={{ marginTop: 60 }} />
-      <Button text="회원가입" onPress={() => navigation.navigate('REGISTER')} style={{ marginTop: 50 }} />
+      <Section>
+        <LogoImage source={require('../../images/logo.png')} />
+        <ImageInput onChangeText={e => onChangeText(e, 'companyCode')} value={loginData.companyCode} placeholder="회사코드" />
+        <ImageInput onChangeText={e => onChangeText(e, 'id')} value={loginData.id} placeholder="아이디" />
+        <ImageInput password onChangeText={e => onChangeText(e, 'password')} value={loginData.password} placeholder="비밀번호" />
+        <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
+        <Button text="로그인" onPress={onPress} />
+        <TextButton onPress={() => navigation.navigate('REGISTER')} text="회원가입" />
+      </Section>
     </Header>
   );
 };
