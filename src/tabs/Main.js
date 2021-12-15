@@ -68,12 +68,12 @@ export default function MainPage(props) {
       <Tab.Navigator
         initialRouteName="홈"
         screenOptions={({ route }) => ({
-          tabBarActiveTintColor: 'white',
-          tabBarInactiveTintColor: 'white',
+          tabBarActiveTintColor: '#4f61e7',
+          tabBarInactiveTintColor: 'rgba(0, 0, 0, 0.38)',
           tabBarStyle: {
             paddingVertical: Platform.OS === 'ios' ? 20 : 0,
             height: 90,
-            backgroundColor: '#4f61e7',
+            backgroundColor: 'white',
           },
           tabBarLabelStyle: {
             marginBottom: 10,
@@ -82,7 +82,7 @@ export default function MainPage(props) {
           },
           labelPosition: 'below-icon',
           tabBarLabel: route.name,
-          tabBarIcon: () => TabBarIcon(route.name),
+          tabBarIcon: ({ size, focused }) => TabBarIcon(route.name, size, focused),
         })}
       >
         <Tab.Screen
@@ -100,23 +100,23 @@ export default function MainPage(props) {
   );
 }
 
-const TabBarIcon = name => {
+const TabBarIcon = (name, size, focused) => {
   let iconImagePath;
   if (name === '메일') {
-    iconImagePath = require('../../images/w_foot_icon01.png');
+    iconImagePath = focused ? require('../../images/mail_color.png') : require('../../images/mail.png');
   } else if (name === '쪽지') {
-    iconImagePath = require('../../images/w_foot_icon02.png');
+    iconImagePath = focused ? require('../../images/message_color.png') : require('../../images/message.png');
   } else if (name === '게시판') {
-    iconImagePath = require('../../images/w_foot_icon03.png');
+    iconImagePath = focused ? require('../../images/home_color.png') : require('../../images/home.png');
   } else {
-    iconImagePath = require('../../images/w_foot_icon04.png');
+    iconImagePath = focused ? require('../../images/todo_color.png') : require('../../images/todo.png');
   }
   return (
     <Image
       style={{
-        marginBottom: 10,
-        width: 25,
-        height: 25,
+        marginBottom: 15,
+        width: size * 1.1,
+        height: size * 1.1,
       }}
       source={iconImagePath}
     />
