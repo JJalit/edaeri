@@ -43,12 +43,7 @@ export default function HomeRoutePage({ route, navigation }) {
             headerTitleAlign: 'center',
             headerShown: true,
             gestureEnabled: false,
-            headerTitle: () => <Image source={require('../../../../images/ic_logo.png')} style={styles.ImageStyle2} />,
-            headerRight: () => (
-              <TouchableOpacity onPress={onPressLogout}>
-                <Image source={require('../../../../images/ic_out.png')} style={styles.ImageStyle3} />
-              </TouchableOpacity>
-            ),
+            headerTitle: () => <Image source={require('../../../../images/ic_logo.png')} style={styles.ImageStyle1} />,
           }}
         />
         <Drawer.Screen name="WEBVIEW" component={HomeWebViewPage} options={{ headerShown: false, gestureEnabled: true }} />
@@ -59,20 +54,11 @@ export default function HomeRoutePage({ route, navigation }) {
 
 const styles = StyleSheet.create({
   ImageStyle1: {
-    marginLeft: 10,
-    height: 35,
-    width: 45,
-    resizeMode: 'stretch',
+    height: 30,
+    width: 78,
   },
   ImageStyle2: {
-    height: 40,
-    width: 80,
-    resizeMode: 'stretch',
-  },
-  ImageStyle3: {
-    height: 40,
-    width: 45,
-    resizeMode: 'stretch',
-    marginRight: 10,
+    width: 24,
+    height: 24,
   },
 });
