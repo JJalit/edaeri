@@ -1,11 +1,30 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
+
+import styled from 'styled-components/native';
 
 import { storage } from '../../../config';
 
 const { getToken } = storage;
+
+const MenuButton = styled.TouchableOpacity`
+  align-items: center;
+`;
+
+const Wrapper = styled.View`
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 84px;
+  height: 84px;
+  margin: 8px 10px;
+
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(15, 32, 91, 0.15);
+  border: 0.5px solid rgba(0, 0, 0, 0.13);
+`;
 
 export default function HomePage({ props, route, navigation }) {
   const [cmdCode, setCmdCode] = useState('');
@@ -36,65 +55,48 @@ export default function HomePage({ props, route, navigation }) {
 
   return (
     <SafeAreaView>
-      <FlatGrid
-        itemDimension={100}
-        data={menu}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => goWebView(item.menu_url)}>
-            <View style={[styles.itemContainer, { backgroundColor: '#FFFFFF' }]}>
-              <Text style={styles.itemName}>{item.menu_name}</Text>
-              <Text style={styles.itemDescription}>{item.menu_name}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            width: 312,
+            marginTop: 16,
+          }}
+        >
+          {menu.map((item, v) => {
+            const { menu_id, menu_name, menu_url } = item;
+            return (
+              <MenuButton key={v} onPress={() => goWebView(menu_url)}>
+                <Wrapper>
+                  <Image source={require('../../../../images/main/m_email.png')} style={{ width: 36, height: 35 }} />
+                </Wrapper>
+                <Text style={styles.itemName}>{menu_name}</Text>
+              </MenuButton>
+            );
+          })}
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    height: 60,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-
-  ImageStyle1: {
-    marginLeft: -30,
-    height: 35,
-    width: 50,
-    resizeMode: 'stretch',
-  },
-  ImageStyle2: {
-    height: 50,
-    width: 100,
-    resizeMode: 'stretch',
-  },
-
-  ImageStyle3: {
-    marginRight: -30,
-    height: 40,
-    width: 40,
-    resizeMode: 'stretch',
-  },
-
-  gridView: {
-    marginTop: 10,
-    flex: 1,
-  },
   itemContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
-    padding: 10,
-    height: 100,
+    borderRadius: 10,
+    width: 84,
+    height: 84,
+    marginVertical: 24,
+    marginHorizontal: 10,
   },
   itemName: {
     fontSize: 15,
     color: '#333',
     fontWeight: 'bold',
+    marginBottom: 16,
   },
   itemDescription: {
     fontWeight: 'normal',
