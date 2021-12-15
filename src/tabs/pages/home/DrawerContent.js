@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import styled from 'styled-components/native';
 import RNRestart from 'react-native-restart';
 
 import { storage } from '../../../config';
+import { TextButton } from '../../../components';
 
 const { getToken, removeToken } = storage;
-
-const StyledPressable = styled.Pressable`
-  align-self: center;
-  padding: 5px 10px;
-`;
-
-const StyledText = styled.Text`
-  font-size: 16px;
-  color: grey;
-  text-decoration: underline grey;
-`;
 
 function CustomDrawerContent(props) {
   const [cmdCode, setCmdCode] = useState('');
@@ -65,9 +54,7 @@ function CustomDrawerContent(props) {
       {menu.map((item, idx) => (
         <DrawerItem label={item.menu_name} onPress={() => goWebView(item.menu_url)} key={idx} />
       ))}
-      <StyledPressable onPress={onPressLogout}>
-        <StyledText>로그아웃</StyledText>
-      </StyledPressable>
+      <TextButton onPress={onPressLogout} text="로그아웃" />
     </DrawerContentScrollView>
   );
 }
