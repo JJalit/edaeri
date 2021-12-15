@@ -19,6 +19,8 @@ function CheckBoxText(props) {
         style={styles.checkbox}
         boxType="square"
         value={value}
+        onCheckColor="#4e5cf1"
+        onTintColor="#4e5cf1"
         onValueChange={onValueChange}
         animationDuration={0.5}
         onAnimationType="bounce"
