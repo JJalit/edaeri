@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import RNRestart from 'react-native-restart';
 
 import DrawerContent from './DrawerContent';
 import HomeWebViewPage from './HomeWebView';
 import HomePage from './HomePage';
 import { storage } from '../../../config';
 
-const { storeToken, removeToken, getToken } = storage;
+const { storeToken } = storage;
 
 const Drawer = createDrawerNavigator();
 
@@ -17,21 +16,6 @@ export default function HomeRoutePage({ route, navigation }) {
   useEffect(() => {
     storeToken('mainData', route.params.data);
   }, []);
-
-  async function onPressLogout() {
-    removeToken('isAutoLogin');
-    removeToken('token');
-    removeToken('id');
-    removeToken('pw');
-    removeToken('cmdCode');
-    removeToken('mainData');
-
-    const userData = await getToken('token');
-
-    if (userData == null) {
-      RNRestart.Restart();
-    }
-  }
 
   return (
     <NavigationContainer independent="true">
