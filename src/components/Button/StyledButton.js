@@ -1,13 +1,14 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
 
 const StyledButton = styled.TouchableOpacity`
-  width: ${Dimensions.get('window').width - 150}px;
-  height: 40px;
+  width: 100%;
+  height: 52px;
 
-  background-color: #ffffff;
+  background-color: #4e5cf1;
 
-  border-radius: 50px;
+  margin: 24px 0 20px;
+
+  border-radius: 5px;
   justify-content: center;
   align-items: center;
 `;

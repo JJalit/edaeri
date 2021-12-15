@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
 const StyledText = styled.Text`
-  color: #4e5cf1;
-  font-size: 18px;
+  color: #fff;
+  font-size: 16px;
   font-weight: bold;
 `;
 
