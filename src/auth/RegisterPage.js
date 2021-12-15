@@ -1,12 +1,13 @@
 import React from 'react';
 import { WebView } from 'react-native-webview';
-import { SafeAreaView } from 'react-native';
+
+import Screen from '../components/Screen';
 
 const RegisterPage = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <Screen>
       <WebView source={{ uri: 'https://www.edaeri.com/#/joinAgreement' }} />
-    </SafeAreaView>
+    </Screen>
   );
 };
 
