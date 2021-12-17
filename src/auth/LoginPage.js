@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 
 import { Button, ImageInput, CheckBoxText, LogoImage, Header, Section, TextButton } from '../components';
 import { storage, data } from '../config';
 
-const { storeToken } = storage;
+const { storeToken, getToken } = storage;
 const { inputItems } = data;
 
 const LoginPage = ({ navigation }) => {
   const [loginData, setLoginData] = useState({ companyCode: '', id: '', password: '', isSelected: false });
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    checkLoggedIn();
+  }, []);
+
+  const checkLoggedIn = async () => {
+    if (await getToken('isAutoLogin')) {
+      navigation.navigate('MAIN', { data: await getToken('data') });
+      setTimeout(() => {
+        SplashScreen.hide();
+      }, 2000);
+    } else SplashScreen.hide();
+  };
 
   const onPress = () => {
     let data = JSON.stringify({
@@ -45,6 +59,7 @@ const LoginPage = ({ navigation }) => {
           storeToken('token', res['HEADER']['AUTH_TOKEN']);
           storeToken('cmdCode', loginData.companyCode);
           storeToken('id', loginData.id);
+          storeToken('data', res.DATA);
 
           navigation.navigate('MAIN', { data: res.DATA });
         } else {
