@@ -85,4 +85,37 @@ const inputItems = [
   },
 ];
 
-export default { menuItems, inputItems };
+const drawerItems = [
+  {
+    id: 'm_notice',
+    text: '공지사항',
+    url: 'https://erp.edaeri.com/gw/app/groupware/notice/Notice.jsp',
+    image: require('../../images/drawer/m_notice.png'),
+  },
+  {
+    id: 'm_board',
+    text: '게시판',
+    url: 'https://erp.edaeri.com/gw/app/groupware/board/Board.jsp',
+    image: require('../../images/drawer/m_board.png'),
+  },
+  {
+    id: 'm_ess',
+    text: '대시우',
+    url: 'https://erp.edaeri.com/gw/app/groupware/ess/Ess.jsp',
+    image: require('../../images/drawer/m_ess.png'),
+  },
+  {
+    id: 'm_bi',
+    text: 'BI',
+    url: 'https://erp.edaeri.com/gw/app/groupware/bi/Bi.jsp',
+    image: require('../../images/drawer/m_bi.png'),
+  },
+  {
+    id: 'm_erp',
+    text: 'ERP',
+    url: 'https://erp.edaeri.com/bo/mobile/ErpMenuBlock.mobile.jsp?module=erp&title=ERP',
+    image: require('../../images/drawer/m_erp.png'),
+  },
+];
+
+export default { menuItems, inputItems, drawerItems };
