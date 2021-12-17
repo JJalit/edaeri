@@ -102,12 +102,12 @@ export default function MainPage(props) {
 
 const TabBarIcon = (name, size, focused) => {
   let iconImagePath;
-  if (name === '메일') {
+  if (name === '홈') {
+    iconImagePath = focused ? require('../../images/home_color.png') : require('../../images/home.png');
+  } else if (name === '메일') {
     iconImagePath = focused ? require('../../images/mail_color.png') : require('../../images/mail.png');
   } else if (name === '쪽지') {
     iconImagePath = focused ? require('../../images/message_color.png') : require('../../images/message.png');
-  } else if (name === '게시판') {
-    iconImagePath = focused ? require('../../images/home_color.png') : require('../../images/home.png');
   } else {
     iconImagePath = focused ? require('../../images/todo_color.png') : require('../../images/todo.png');
   }
