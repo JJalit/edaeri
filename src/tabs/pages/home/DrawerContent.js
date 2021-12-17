@@ -112,7 +112,7 @@ function CustomDrawerContent(props) {
           </MenuButton>
         );
       })}
-      <TextButton onPress={onPressLogout} text="로그아웃" style={{ marginTop: 200 }} />
+      <TextButton onPress={onPressLogout} text="로그아웃" style={{ marginTop: 260 }} />
     </DrawerContentScrollView>
   );
 }
