@@ -1,13 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native';
-import { FlatGrid } from 'react-native-super-grid';
 
 import styled from 'styled-components/native';
 
-import { storage } from '../../../config';
+import { storage, data } from '../../../config';
 
 const { getToken } = storage;
+const { menuItems } = data;
 
 const MenuButton = styled.TouchableOpacity`
   align-items: center;
@@ -23,7 +23,7 @@ const Wrapper = styled.View`
 
   background: #fff;
   box-shadow: 0 1px 5px rgba(15, 32, 91, 0.15);
-  border: 0.5px solid rgba(0, 0, 0, 0.13);
+  border: ${props => (props.active ? '1px solid  #828cf4' : '0.5px solid rgba(0, 0, 0, 0.13)')};
 `;
 
 export default function HomePage({ props, route, navigation }) {
@@ -50,6 +50,7 @@ export default function HomePage({ props, route, navigation }) {
 
   function goWebView(item) {
     var web_url = item + `?cmdCode=${cmdCode}&usrID=${id}&usrTK=${token}`;
+    console.log(web_url);
     navigation.navigate('WEBVIEW', { url: web_url });
   }
 
@@ -65,14 +66,24 @@ export default function HomePage({ props, route, navigation }) {
             marginTop: 16,
           }}
         >
-          {menu.map((item, v) => {
-            const { menu_id, menu_name, menu_url } = item;
+          {menuItems.map((menuItem, i) => {
+            const { id, text, active, inactive, url, width, height } = menuItem;
+            if (menu.findIndex(item => item.menu_id === id) !== -1) {
+              return (
+                <MenuButton key={i} onPress={() => goWebView(url)}>
+                  <Wrapper active>
+                    <Image source={active} style={{ width: width, height: height }} />
+                  </Wrapper>
+                  <Text style={styles.itemName}>{text}</Text>
+                </MenuButton>
+              );
+            }
             return (
-              <MenuButton key={v} onPress={() => goWebView(menu_url)}>
+              <MenuButton key={i}>
                 <Wrapper>
-                  <Image source={require('../../../../images/main/m_email.png')} style={{ width: 36, height: 35 }} />
+                  <Image source={inactive} style={{ width: width, height: height }} />
                 </Wrapper>
-                <Text style={styles.itemName}>{menu_name}</Text>
+                <Text style={styles.itemName}>{text}</Text>
               </MenuButton>
             );
           })}
