@@ -50,7 +50,6 @@ export default function HomePage({ props, route, navigation }) {
 
   function goWebView(item) {
     var web_url = item + `?cmdCode=${cmdCode}&usrID=${id}&usrTK=${token}`;
-    console.log(web_url);
     navigation.navigate('WEBVIEW', { url: web_url });
   }
 
