@@ -5,7 +5,7 @@ import ErrorText from './ErrorText';
 import StyledView from './StyledView';
 import Input from '../Input';
 
-function ImageInput(props) {
+function ValidationInput(props) {
   const { style, onChangeText, value, placeholder, password, onClose, error, errorText } = props;
 
   const styles = {
@@ -34,4 +34,4 @@ function ImageInput(props) {
   );
 }
 
-export default ImageInput;
+export default ValidationInput;
