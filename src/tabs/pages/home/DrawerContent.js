@@ -35,46 +35,27 @@ const Dummy = styled.View`
 `;
 
 function CustomDrawerContent(props) {
-  const [cmdCode, setCmdCode] = useState('');
-  const [id, setId] = useState('');
-  const [token, setToken] = useState('');
-  const [menu, setMenu] = useState([]);
+  const [auth, setAuth] = useState({ cmdCode: '', id: '', token: '', data: [] });
 
   useEffect(() => {
     getUserData();
   }, []);
 
   async function getUserData() {
-    const cmdCode = await getToken('cmdCode');
-    const id = await getToken('id');
-    const token = await getToken('token');
-    const mainData = await getToken('mainData');
-
-    setCmdCode(cmdCode);
-    setId(id);
-    setToken(token);
-    setMenu(mainData);
+    const auth = await getToken('auth');
+    setAuth(auth);
   }
 
   function goWebView(item) {
-    var web_url = item + `?cmdCode=${cmdCode}&usrID=${id}&usrTK=${token}`;
+    let web_url = item + `?cmdCode=${auth.cmdCode}&usrID=${auth.id}&usrTK=${auth.token}`;
     props.navigation.navigate('WEBVIEW', { url: web_url });
   }
 
   async function onPressLogout() {
-    removeToken('isAutoLogin');
-    removeToken('token');
-    removeToken('id');
-    removeToken('pw');
-    removeToken('cmdCode');
-    removeToken('mainData');
-    removeToken('data');
+    removeToken('auth');
 
-    const userData = await getToken('token');
-
-    if (userData == null) {
-      RNRestart.Restart();
-    }
+    const isLogin = await getToken('auth');
+    if (isLogin === null) return RNRestart.Restart();
   }
 
   return (
@@ -87,7 +68,7 @@ function CustomDrawerContent(props) {
       </Wrapper>
       {drawerItems.map((drawerItem, i) => {
         const { id, text, image, url } = drawerItem;
-        if (menu.findIndex(item => item.menu_id === id) !== -1) {
+        if (auth.data.findIndex(item => item.menu_id === id) !== -1) {
           return (
             <MenuButton key={i} onPress={() => goWebView(url)}>
               <Wrapper item>

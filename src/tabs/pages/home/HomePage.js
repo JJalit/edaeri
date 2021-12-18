@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, View, Image } from 'react-native';
 
 import styled from 'styled-components/native';
 
@@ -26,30 +26,20 @@ const Wrapper = styled.View`
   border: ${props => (props.active ? '1px solid  #828cf4' : '0.5px solid rgba(0, 0, 0, 0.13)')};
 `;
 
-export default function HomePage({ props, route, navigation }) {
-  const [cmdCode, setCmdCode] = useState('');
-  const [id, setId] = useState('');
-  const [token, setToken] = useState('');
-  const [menu, setMenu] = useState([]);
+export default function HomePage({ navigation }) {
+  const [auth, setAuth] = useState({ cmdCode: '', id: '', token: '', data: [] });
 
   useEffect(() => {
     getUserData();
   }, []);
 
   async function getUserData() {
-    const cmdCode = await getToken('cmdCode');
-    const id = await getToken('id');
-    const token = await getToken('token');
-    const mainData = await getToken('mainData');
-
-    setCmdCode(cmdCode);
-    setId(id);
-    setToken(token);
-    setMenu(mainData);
+    const auth = await getToken('auth');
+    setAuth(auth);
   }
 
   function goWebView(item) {
-    var web_url = item + `?cmdCode=${cmdCode}&usrID=${id}&usrTK=${token}`;
+    let web_url = item + `?cmdCode=${auth.cmdCode}&usrID=${auth.id}&usrTK=${auth.token}`;
     navigation.navigate('WEBVIEW', { url: web_url });
   }
 
@@ -67,7 +57,7 @@ export default function HomePage({ props, route, navigation }) {
         >
           {menuItems.map((menuItem, i) => {
             const { id, text, active, inactive, url, width, height } = menuItem;
-            if (menu.findIndex(item => item.menu_id === id) !== -1) {
+            if (auth.data.findIndex(item => item.menu_id === id) !== -1) {
               return (
                 <MenuButton key={i} onPress={() => goWebView(url)}>
                   <Wrapper active>
@@ -93,24 +83,10 @@ export default function HomePage({ props, route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    width: 84,
-    height: 84,
-    marginVertical: 24,
-    marginHorizontal: 10,
-  },
   itemName: {
     fontSize: 15,
     color: '#333',
     fontWeight: 'bold',
     marginBottom: 16,
-  },
-  itemDescription: {
-    fontWeight: 'normal',
-    fontSize: 11,
-    color: '#4d5df0',
   },
 });

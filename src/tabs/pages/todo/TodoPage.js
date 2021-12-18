@@ -20,11 +20,11 @@ export default function TodoPage({ navigation }) {
   }, []);
 
   async function getUserData() {
-    const cmdCode = await getToken('cmdCode');
-    const id = await getToken('id');
-    const token = await getToken('token');
+    const auth = await getToken('auth');
 
-    setUrl('https://erp.edaeri.com/gw/app/groupware/task/TaskTodo.jsp?cmdCode=' + cmdCode + '&usrID=' + id + '&usrTK=' + token);
+    setUrl(
+      'https://erp.edaeri.com/gw/app/groupware/task/TaskTodo.jsp?cmdCode=' + auth.cmdCode + '&usrID=' + auth.id + '&usrTK=' + auth.token
+    );
   }
 
   const onMessage = e => {

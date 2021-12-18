@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 
-import { Button, ImageInput, CheckBoxText, LogoImage, Header, Section, TextButton } from '../components';
+import { Button, ValidationInput, CheckBoxText, LogoImage, Header, Section, TextButton } from '../components';
 import { storage, data } from '../config';
 
 const { storeToken, getToken } = storage;
@@ -18,8 +18,11 @@ const LoginPage = ({ navigation }) => {
   }, []);
 
   const checkLoggedIn = async () => {
-    if (await getToken('isAutoLogin')) {
-      navigation.navigate('MAIN', { data: await getToken('data') });
+    const auth = await getToken('auth');
+    const isAutoLogin = auth && auth.isAutoLogin;
+    const data = auth && auth.data;
+    if (isAutoLogin) {
+      navigation.navigate('MAIN', { data });
       setTimeout(() => {
         SplashScreen.hide();
       }, 2000);
@@ -54,13 +57,16 @@ const LoginPage = ({ navigation }) => {
         console.log(res);
 
         if (res['HEADER']['RESPONSE_CODE'] == 'S') {
-          storeToken('isAutoLogin', loginData.isSelected);
-          storeToken('pw', loginData.password);
-          storeToken('token', res['HEADER']['AUTH_TOKEN']);
-          storeToken('cmdCode', loginData.companyCode);
-          storeToken('id', loginData.id);
-          storeToken('data', res.DATA);
+          let auth = {
+            cmdCode: loginData.companyCode,
+            id: loginData.id,
+            pw: loginData.password,
+            isAutoLogin: loginData.isSelected,
+            token: res['HEADER']['AUTH_TOKEN'],
+            data: res.DATA,
+          };
 
+          storeToken('auth', auth);
           navigation.navigate('MAIN', { data: res.DATA });
         } else {
           setError(true);
@@ -87,7 +93,7 @@ const LoginPage = ({ navigation }) => {
       <Section>
         <LogoImage source={require('../../images/logo.png')} />
         {inputItems.map((item, i) => (
-          <ImageInput
+          <ValidationInput
             key={i}
             error={error}
             errorText={item.errorText}
@@ -98,10 +104,9 @@ const LoginPage = ({ navigation }) => {
             placeholder={item.placeholder}
           />
         ))}
-
         <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
         <Button text="로그인" onPress={onPress} />
-        <TextButton onPress={() => setError(false)} text="회원가입" />
+        <TextButton onPress={() => navigation.navigate('REGISTER')} text="회원가입" />
       </Section>
     </Header>
   );

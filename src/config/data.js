@@ -110,6 +110,12 @@ const drawerItems = [
     url: 'https://erp.edaeri.com/gw/app/groupware/bi/Bi.jsp',
     image: require('../../images/drawer/m_bi.png'),
   },
+  // {
+  //   id: 'm_erp',
+  //   text: 'ERP',
+  //   url: 'https://erp.edaeri.com/bo/mobile/ErpMenuBlock.mobile.jsp?module=erp&title=ERP',
+  //   image: require('../../images/drawer/m_erp.png'),
+  // },
 ];
 
 export default { menuItems, inputItems, drawerItems };
