@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BackHandler } from 'react-native';
 import { WebView } from 'react-native-webview';
+
 import Screen from '../../../components/Screen';
 
 const injectedJavascript = `(function() {

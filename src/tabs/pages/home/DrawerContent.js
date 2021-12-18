@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 import RNRestart from 'react-native-restart';
 import styled from 'styled-components/native';
 
@@ -34,7 +34,7 @@ const Dummy = styled.View`
   height: 24px;
 `;
 
-function CustomDrawerContent(props) {
+function DrawerContent(props) {
   const [auth, setAuth] = useState({ cmdCode: '', id: '', token: '', data: [] });
 
   useEffect(() => {
@@ -105,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomDrawerContent;
+export default DrawerContent;

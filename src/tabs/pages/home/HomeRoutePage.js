@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -6,17 +6,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 import HomeWebViewPage from './HomeWebView';
 import HomePage from './HomePage';
-import { storage } from '../../../config';
-
-const { storeToken } = storage;
 
 const Drawer = createDrawerNavigator();
 
-export default function HomeRoutePage({ route, navigation }) {
-  useEffect(() => {
-    storeToken('mainData', route.params.data);
-  }, []);
-
+export default function HomeRoutePage() {
   return (
     <NavigationContainer independent="true">
       <Drawer.Navigator initialRouteName="Drawer" drawerContent={props => <DrawerContent {...props} />}>
