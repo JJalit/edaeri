@@ -1,38 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import RNRestart from 'react-native-restart';
-import styled from 'styled-components/native';
 
-import { storage, data } from '../../../config';
+import Wrapper from './components/DrawerItem/Wrapper';
+import { DrawerItem, ImageButton } from './components';
 import { TextButton } from '../../../components';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { storage, data } from '../../../config';
 
 const { getToken, removeToken } = storage;
 const { drawerItems } = data;
-
-const MenuButton = styled.Pressable``;
-
-const Wrapper = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  background: #fff;
-
-  width: 100%;
-  padding: 24px 16px;
-  border: ${props => (props.item ? '1px solid #f8f9fa' : 'none')};
-`;
-
-const ImageWrapper = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Dummy = styled.View`
-  width: 25px;
-  height: 24px;
-`;
 
 function DrawerContent(props) {
   const [auth, setAuth] = useState({ cmdCode: '', id: '', token: '', data: [] });
@@ -60,48 +37,36 @@ function DrawerContent(props) {
 
   return (
     <DrawerContentScrollView {...props}>
-      <Wrapper style={{ borderBottomWidth: 1, borderBottomColor: '#adb5bd' }}>
-        <Dummy />
-        <Pressable onPress={() => props.navigation.closeDrawer()}>
-          <Image source={require('../../../../images/drawer/cancel.png')} style={{ width: 25, height: 24 }} />
-        </Pressable>
+      <Wrapper style={styles.border}>
+        <View style={styles.closeIcon} />
+        <ImageButton
+          onPress={() => props.navigation.closeDrawer()}
+          source={require('../../../../images/drawer/cancel.png')}
+          imageStyle={styles.closeIcon}
+        />
       </Wrapper>
       {drawerItems.map((drawerItem, i) => {
         const { id, text, image, url } = drawerItem;
-        if (auth.data.findIndex(item => item.menu_id === id) !== -1) {
-          return (
-            <MenuButton key={i} onPress={() => goWebView(url)}>
-              <Wrapper item>
-                <ImageWrapper>
-                  <Image source={image} style={{ width: 28, height: 28 }} />
-                  <Text style={styles.text}>{text}</Text>
-                </ImageWrapper>
-                <Image source={require('../../../../images/drawer/arrow.png')} style={{ width: 12, height: 12 }} />
-              </Wrapper>
-            </MenuButton>
-          );
-        }
-        return (
-          <MenuButton key={i}>
-            <Wrapper item>
-              <ImageWrapper>
-                <Image source={image} style={{ width: 28, height: 28 }} />
-                <Text style={styles.text}>{text}</Text>
-              </ImageWrapper>
-              <Image source={require('../../../../images/drawer/arrow.png')} style={{ width: 12, height: 12 }} />
-            </Wrapper>
-          </MenuButton>
-        );
+        if (auth.data.findIndex(item => item.menu_id === id) !== -1)
+          return <DrawerItem key={i} onPress={() => goWebView(url)} image={image} text={text} />;
+        return <DrawerItem key={i} image={image} text={text} />;
       })}
-      <TextButton onPress={onPressLogout} text="로그아웃" style={{ marginTop: 260 }} />
+      <TextButton onPress={onPressLogout} text="로그아웃" style={styles.textButtonPosition} />
     </DrawerContentScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontWeight: 'bold',
-    marginLeft: 8,
+  closeIcon: {
+    width: 25,
+    height: 24,
+  },
+  border: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#adb5bd',
+  },
+  textButtonPosition: {
+    marginTop: 260,
   },
 });
 

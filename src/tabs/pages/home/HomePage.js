@@ -1,30 +1,11 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, View, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native';
 
-import styled from 'styled-components/native';
-
+import { MenuItem, Header, Section } from './components';
 import { storage, data } from '../../../config';
 
 const { getToken } = storage;
 const { menuItems } = data;
-
-const MenuButton = styled.TouchableOpacity`
-  align-items: center;
-`;
-
-const Wrapper = styled.View`
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  width: 84px;
-  height: 84px;
-  margin: 8px 10px;
-
-  background: #fff;
-  box-shadow: 0 1px 5px rgba(15, 32, 91, 0.15);
-  border: ${props => (props.active ? '1px solid  #828cf4' : '0.5px solid rgba(0, 0, 0, 0.13)')};
-`;
 
 export default function HomePage({ navigation }) {
   const [auth, setAuth] = useState({ cmdCode: '', id: '', token: '', data: [] });
@@ -45,48 +26,18 @@ export default function HomePage({ navigation }) {
 
   return (
     <SafeAreaView>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            width: 312,
-            marginTop: 16,
-          }}
-        >
+      <Header>
+        <Section>
           {menuItems.map((menuItem, i) => {
             const { id, text, active, inactive, url, width, height } = menuItem;
-            if (auth.data.findIndex(item => item.menu_id === id) !== -1) {
+            if (auth.data.findIndex(item => item.menu_id === id) !== -1)
               return (
-                <MenuButton key={i} onPress={() => goWebView(url)}>
-                  <Wrapper active>
-                    <Image source={active} style={{ width: width, height: height }} />
-                  </Wrapper>
-                  <Text style={styles.itemName}>{text}</Text>
-                </MenuButton>
+                <MenuItem key={i} onPress={() => goWebView(url)} active={true} source={active} width={width} height={height} text={text} />
               );
-            }
-            return (
-              <MenuButton key={i}>
-                <Wrapper>
-                  <Image source={inactive} style={{ width: width, height: height }} />
-                </Wrapper>
-                <Text style={styles.itemName}>{text}</Text>
-              </MenuButton>
-            );
+            return <MenuItem key={i} active={false} source={inactive} width={width} height={height} text={text} />;
           })}
-        </View>
-      </View>
+        </Section>
+      </Header>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  itemName: {
-    fontSize: 15,
-    color: '#333',
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-});
