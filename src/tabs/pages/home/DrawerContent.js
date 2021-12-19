@@ -49,7 +49,6 @@ function DrawerContent(props) {
         const { id, text, image, url } = drawerItem;
         if (auth.data.findIndex(item => item.menu_id === id) !== -1)
           return <DrawerItem key={i} onPress={() => goWebView(url)} image={image} text={text} />;
-        return <DrawerItem key={i} image={image} text={text} />;
       })}
       <TextButton onPress={onPressLogout} text="로그아웃" style={styles.textButtonPosition} />
     </DrawerContentScrollView>
@@ -66,7 +65,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#adb5bd',
   },
   textButtonPosition: {
-    marginTop: 260,
+    position: 'absolute',
+    top: 700,
   },
 });
 
