@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Alert, BackHandler, Image } from 'react-native';
+import { Alert, BackHandler, Image, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -71,8 +71,8 @@ export default function MainPage(props) {
           tabBarActiveTintColor: '#4f61e7',
           tabBarInactiveTintColor: 'rgba(0, 0, 0, 0.38)',
           tabBarStyle: {
-            paddingVertical: Platform.OS === 'ios' ? 20 : 0,
-            height: 90,
+            paddingVertical: 20,
+            height: Platform.OS === 'ios' ? 90 : 60,
             backgroundColor: 'white',
           },
           tabBarLabelStyle: {
