@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 
@@ -12,6 +12,7 @@ const { inputItems } = data;
 const LoginPage = ({ navigation }) => {
   const [loginData, setLoginData] = useState({ companyCode: '', id: '', password: '', isSelected: false });
   const [error, setError] = useState(false);
+  const [focused, setFocused] = useState(null);
 
   useEffect(() => {
     checkLoggedIn();
@@ -88,26 +89,39 @@ const LoginPage = ({ navigation }) => {
     setLoginData(loginData => ({ ...loginData, [name]: '' }));
   };
 
+  const onFocus = id => {
+    setFocused(id);
+  };
+
+  const onBlur = () => {
+    setFocused(null);
+  };
+
   return (
     <Header>
-      <Section>
-        <LogoImage source={require('../../images/logo.png')} />
-        {inputItems.map((item, i) => (
-          <ValidationInput
-            key={i}
-            error={error}
-            errorText={item.errorText}
-            password={item.name === 'password'}
-            onClose={() => onClose(item.name)}
-            onChangeText={e => onChangeText(e, item.name)}
-            value={loginData[item.name]}
-            placeholder={item.placeholder}
-          />
-        ))}
-        <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
-        <Button text="로그인" onPress={onPress} />
-        <TextButton onPress={() => navigation.navigate('REGISTER')} text="회원가입" />
-      </Section>
+      <ScrollView>
+        <Section>
+          <LogoImage source={require('../../images/logo.png')} />
+          {inputItems.map((item, i) => (
+            <ValidationInput
+              key={i}
+              error={error}
+              errorText={item.errorText}
+              password={item.name === 'password'}
+              onClose={() => onClose(item.name)}
+              onChangeText={e => onChangeText(e, item.name)}
+              onFocus={() => onFocus(item.id)}
+              isFocused={focused === i}
+              onBlur={onBlur}
+              value={loginData[item.name]}
+              placeholder={item.placeholder}
+            />
+          ))}
+          <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
+          <Button text="로그인" onPress={onPress} />
+          <TextButton onPress={() => navigation.navigate('REGISTER')} text="회원가입" />
+        </Section>
+      </ScrollView>
     </Header>
   );
 };
