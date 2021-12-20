@@ -36,22 +36,24 @@ function DrawerContent(props) {
   }
 
   return (
-    <DrawerContentScrollView {...props}>
-      <Wrapper style={styles.border}>
-        <View style={styles.closeIcon} />
-        <ImageButton
-          onPress={() => props.navigation.closeDrawer()}
-          source={require('../../../../images/drawer/cancel.png')}
-          imageStyle={styles.closeIcon}
-        />
-      </Wrapper>
-      {drawerItems.map((drawerItem, i) => {
-        const { id, text, image, url } = drawerItem;
-        if (auth.data.findIndex(item => item.menu_id === id) !== -1)
-          return <DrawerItem key={i} onPress={() => goWebView(url)} image={image} text={text} />;
-      })}
+    <>
+      <DrawerContentScrollView {...props}>
+        <Wrapper style={styles.border}>
+          <View style={styles.closeIcon} />
+          <ImageButton
+            onPress={() => props.navigation.closeDrawer()}
+            source={require('../../../../images/drawer/cancel.png')}
+            imageStyle={styles.closeIcon}
+          />
+        </Wrapper>
+        {drawerItems.map((drawerItem, i) => {
+          const { id, text, image, url } = drawerItem;
+          if (auth.data.findIndex(item => item.menu_id === id) !== -1)
+            return <DrawerItem key={i} onPress={() => goWebView(url)} image={image} text={text} />;
+        })}
+      </DrawerContentScrollView>
       <TextButton onPress={onPressLogout} text="로그아웃" style={styles.textButtonPosition} />
-    </DrawerContentScrollView>
+    </>
   );
 }
 
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
   },
   textButtonPosition: {
     position: 'absolute',
-    top: 700,
+    bottom: 30,
   },
 });
 
