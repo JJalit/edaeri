@@ -6,7 +6,7 @@ import StyledView from './StyledView';
 import Input from '../Input';
 
 function ValidationInput(props) {
-  const { style, onChangeText, value, placeholder, password, onClose, error, errorText } = props;
+  const { style, onBlur, onFocus, isFocused, onChangeText, value, placeholder, password, onClose, error, errorText } = props;
 
   const styles = {
     border: {
@@ -22,8 +22,8 @@ function ValidationInput(props) {
   return (
     <>
       <StyledView style={[style, styles.border]}>
-        <Input onChangeText={onChangeText} value={value} placeholder={placeholder} password={password} />
-        {value.length > 0 && (
+        <Input onBlur={onBlur} onFocus={onFocus} onChangeText={onChangeText} value={value} placeholder={placeholder} password={password} />
+        {value.length > 0 && isFocused && (
           <Pressable onPress={onClose}>
             <Image source={require('../../../images/ion_close.png')} style={{ width: 13, height: 13 }} />
           </Pressable>

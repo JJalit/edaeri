@@ -3,10 +3,12 @@ import React from 'react';
 import StyledTextInput from './StyledTextInput';
 
 function Input(props) {
-  const { style, onChangeText, value, placeholder, password } = props;
+  const { style, onBlur, onFocus, onChangeText, value, placeholder, password } = props;
   return (
     <StyledTextInput
       style={style}
+      onBlur={onBlur}
+      onFocus={onFocus}
       onChangeText={onChangeText}
       value={value}
       maxLength={20}
