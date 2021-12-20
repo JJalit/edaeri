@@ -25,6 +25,9 @@ function CheckBoxText(props) {
         animationDuration={0.5}
         onAnimationType="bounce"
         offAnimationType="bounce"
+        tintColors={{
+          true: '#4e5cf1',
+        }}
       />
       <StyledText onPress={onPress}>로그인 상태 유지</StyledText>
     </StyledView>
