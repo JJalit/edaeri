@@ -23,7 +23,7 @@ export default function TodoPage({ navigation }) {
     const auth = await getToken('auth');
 
     setUrl(
-      'https://erp.edaeri.com/gw/app/groupware/task/TaskTodo.jsp?cmdCode=' + auth.cmdCode + '&usrID=' + auth.id + '&usrTK=' + auth.token
+      `https://erp.edaeri.com/gw/app/groupware/task/TaskTodo.jsp?cmdCode=${auth.cmdCode}&usrID=${auth.id}&usrTK=${auth.token}&viewType=webView`
     );
   }
 

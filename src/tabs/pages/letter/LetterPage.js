@@ -22,7 +22,9 @@ export default function LetterPage({ navigation }) {
   async function getUserData() {
     const auth = await getToken('auth');
 
-    setUrl('https://erp.edaeri.com/gw/app/groupware/note/Note.jsp?cmdCode=' + auth.cmdCode + '&usrID=' + auth.id + '&usrTK=' + auth.token);
+    setUrl(
+      `https://erp.edaeri.com/gw/app/groupware/note/Note.jsp?cmdCode=${auth.cmdCode}&usrID=${auth.id}&usrTK=${auth.token}&viewType=webView`
+    );
   }
 
   const onMessage = e => {

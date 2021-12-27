@@ -24,7 +24,7 @@ function DrawerContent(props) {
   }
 
   function goWebView(item) {
-    let web_url = item + `?cmdCode=${auth.cmdCode}&usrID=${auth.id}&usrTK=${auth.token}`;
+    let web_url = item + `?cmdCode=${auth.cmdCode}&usrID=${auth.id}&usrTK=${auth.token}&viewType=webView`;
     props.navigation.navigate('WEBVIEW', { url: web_url });
   }
 
