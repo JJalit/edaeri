@@ -22,7 +22,7 @@ export default function LetterPage({ navigation }) {
   async function getUserData() {
     const auth = await getToken('auth');
 
-    setUrl('https://erp.edaeri.com/gw/app/groupware/note/Note.jsp?cmdCode=' + auth.cmdCode + '&usrID=' + auth.id + '&usrTK=' + auth.token);
+    setUrl(`https://erp.edaeri.com/gw/app/groupware/note/Note.jsp?cmdCode=${auth.cmdCode}&usrID=${auth.id}&usrTK=${auth.token}`);
   }
 
   const onMessage = e => {
@@ -36,7 +36,12 @@ export default function LetterPage({ navigation }) {
 
   return (
     <Screen>
-      <WebView source={{ uri: url }} javaScriptEnable={true} injectedJavaScript={injectedJavascript} onMessage={onMessage} />
+      <WebView
+        source={{ uri: url, headers: { viewType: 'webView' } }}
+        javaScriptEnable={true}
+        injectedJavaScript={injectedJavascript}
+        onMessage={onMessage}
+      />
     </Screen>
   );
 }
