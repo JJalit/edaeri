@@ -38,6 +38,8 @@ export default function MailPage({ navigation }) {
     <Screen>
       <WebView
         source={{ uri: url, headers: { viewType: 'webView' } }}
+        startInLoadingState={true}
+        originWhitelist={'*'}
         javaScriptEnable={true}
         injectedJavaScript={injectedJavascript}
         onMessage={onMessage}
