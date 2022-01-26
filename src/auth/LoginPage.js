@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, Linking } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 
-import { Button, ValidationInput, CheckBoxText, LogoImage, Header, Section, TextButton } from '../components';
+import { Button, ValidationInput, CheckBoxText, LogoImage, Header, Section, TextButton, Dialog } from '../components';
 import { storage, data } from '../config';
 
 const { storeToken, getToken } = storage;
@@ -13,6 +13,7 @@ const LoginPage = ({ navigation }) => {
   const [loginData, setLoginData] = useState({ companyCode: '', id: '', password: '', isSelected: false });
   const [error, setError] = useState(false);
   const [focused, setFocused] = useState(null);
+  const [visibleDialog, setVisibleDialog] = useState(false);
 
   useEffect(() => {
     checkLoggedIn();
@@ -30,7 +31,7 @@ const LoginPage = ({ navigation }) => {
     } else SplashScreen.hide();
   };
 
-  const onPress = () => {
+  const onClickLogin = () => {
     let data = JSON.stringify({
       HEADER: {
         CMPY_CD: loginData.companyCode,
@@ -97,32 +98,53 @@ const LoginPage = ({ navigation }) => {
     setFocused(null);
   };
 
+  const onClickRegister = () => {
+    setVisibleDialog(true);
+  };
+
+  const onCloseDialog = () => {
+    setVisibleDialog(false);
+  };
+
+  const onOpenBrowser = () => {
+    setVisibleDialog(false);
+    Linking.openURL('https://www.edaeri.com/joinAgreement').catch(err => console.error('An error occurred', err));
+  };
+
   return (
-    <Header>
-      <ScrollView>
-        <Section>
-          <LogoImage source={require('../../images/logo.png')} />
-          {inputItems.map((item, i) => (
-            <ValidationInput
-              key={i}
-              error={error}
-              errorText={item.errorText}
-              password={item.name === 'password'}
-              onClose={() => onClose(item.name)}
-              onChangeText={e => onChangeText(e, item.name)}
-              onFocus={() => onFocus(item.id)}
-              isFocused={focused === i}
-              onBlur={onBlur}
-              value={loginData[item.name]}
-              placeholder={item.placeholder}
-            />
-          ))}
-          <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
-          <Button text="로그인" onPress={onPress} />
-          <TextButton onPress={() => navigation.navigate('REGISTER')} text="회원가입" />
-        </Section>
-      </ScrollView>
-    </Header>
+    <>
+      <Header>
+        <ScrollView>
+          <Section>
+            <LogoImage source={require('../../images/logo.png')} />
+            {inputItems.map((item, i) => (
+              <ValidationInput
+                key={i}
+                error={error}
+                errorText={item.errorText}
+                password={item.name === 'password'}
+                onClose={() => onClose(item.name)}
+                onChangeText={e => onChangeText(e, item.name)}
+                onFocus={() => onFocus(item.id)}
+                isFocused={focused === i}
+                onBlur={onBlur}
+                value={loginData[item.name]}
+                placeholder={item.placeholder}
+              />
+            ))}
+            <CheckBoxText value={loginData.isSelected} onValueChange={e => onChangeText(e, 'isSelected')} onPress={onSelect} />
+            <Button text="로그인" onPress={onClickLogin} />
+            <TextButton onPress={onClickRegister} text="회원가입" />
+          </Section>
+        </ScrollView>
+      </Header>
+      <Dialog
+        visible={visibleDialog}
+        description={`회원가입은 e대리 홈페이지에서 진행됩니다.\n이동하시겠습니까?`}
+        onCancel={onCloseDialog}
+        onOk={onOpenBrowser}
+      />
+    </>
   );
 };
 
